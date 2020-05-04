@@ -74,4 +74,13 @@ class TicTacToe
             return "O"
         end
     end
+
+    def won?
+        if !WIN_COMBINATIONS
+            return false
+        else
+            return true
+        end
+    end
+
 end
