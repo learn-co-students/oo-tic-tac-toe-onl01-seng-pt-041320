@@ -42,7 +42,7 @@ class TicTacToe
     end
 
     def valid_move?(index)
-        if @board[index] == "X" || @board[index] == "O" && index > 0 && index <= 9
+        if @board[index] == "X" || @board[index] == "O"
             false
         elsif index > 9
             false
@@ -51,8 +51,17 @@ class TicTacToe
         end
     end
 
-    def turn(input)
-        x = gets
+    def turn
+        puts "Please enter 1-9:"
+        input = gets.strip
+        idx = input_to_index(input)
+        if valid_move?(idx) == true
+            move(idx, current_player)
+            display_board
+        else
+            puts "Please enter 1-9:"
+            input = gets.strip
+        end
     end
 
     def turn_count
