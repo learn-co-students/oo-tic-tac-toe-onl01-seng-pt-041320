@@ -76,10 +76,15 @@ class TicTacToe
     end
 
     def won?
-        if !WIN_COMBINATIONS
-            return false
-        else
-            return true
+        @board.all?{|x| WIN_COMBINATIONS.include? x}
+    end
+    #binding.pry
+
+    def full?
+        if !@board.empty?
+            true
+        else 
+            false
         end
     end
 
