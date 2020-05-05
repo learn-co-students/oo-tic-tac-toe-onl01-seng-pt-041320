@@ -38,7 +38,6 @@ class TicTacToe
         else
             false
         end
-        #binding.pry
     end
 
     def valid_move?(index)
@@ -111,6 +110,12 @@ class TicTacToe
             return true
         end
         return false
+    end
+
+    def winner
+        x = won?.each{|position| @board[position] == "X"}
+        o = won?.each{|position| @board[position] == "O"}
+        position_taken?(won?)
     end
 
 end
