@@ -76,16 +76,34 @@ class TicTacToe
     end
 
     def won?
-        @board.all?{|x| WIN_COMBINATIONS.include? x}
+        combo = 0
+        while combo < WIN_COMBINATIONS.length
+            new_combo = WIN_COMBINATIONS[combo]
+            x = new_combo.all?{|pos| @board[pos] == "X"}
+            o = new_combo.all?{|pos| @board[pos] == "O"}
+            if x == true || o == true
+                return new_combo
+            else
+                false
+            end
+            combo += 1
+        end
     end
-    #binding.pry
 
     def full?
-        if !@board.empty?
-            true
-        else 
-            false
+        @board.each do |element|
+            if element == " "
+                return false
+            end
         end
+        return true
+    end
+
+    def draw?
+        if !won? && !full?
+            return true
+        end
+        return false
     end
 
 end
