@@ -41,6 +41,8 @@ class TicTacToe
     end
 
     def valid_move?(index)
+        #!true = false
+        #!false = true
         if !position_taken?(index) && index.between?(0,8)
             return true
         else
@@ -51,6 +53,7 @@ class TicTacToe
     def turn
         puts "Please enter 1-9:"
         input = gets.strip
+        #strip removes new lines and characters at the end of a string
         idx = input_to_index(input)
         if valid_move?(idx)
             move(idx, current_player)
@@ -113,9 +116,13 @@ class TicTacToe
     end
 
     def winner
-        x = won?.each{|position| @board[position] == "X"}
-        o = won?.each{|position| @board[position] == "O"}
-        position_taken?(won?)
+        #binding.pry
+        if won?
+           @board[won?[1]] 
+        end
+        #x = won?.each{|position| @board[position] == "X"}
+        #o = won?.each{|position| @board[position] == "O"}
+        #position_taken?(won?)
     end
 
 end
