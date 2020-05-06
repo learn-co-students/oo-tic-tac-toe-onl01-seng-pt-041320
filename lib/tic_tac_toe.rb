@@ -11,8 +11,9 @@ class TicTacToe
         [0,4,8],
         [6,4,2]
     ]
-    def initialize(board = nil)
-        @board = board || Array.new(9, " ")
+    def initialize
+        @board = Array.new(9, " ")
+        #play
     end
 
     def display_board
@@ -56,11 +57,12 @@ class TicTacToe
         #strip removes new lines and characters at the end of a string
         idx = input_to_index(input)
         if valid_move?(idx)
-            move(idx, current_player)
-            display_board
+            token = current_player
+            move(idx, token)
         else
             turn
         end
+        display_board
     end
 
     def turn_count
@@ -78,18 +80,24 @@ class TicTacToe
     end
 
     def won?
-        combo = 0
-        while combo < WIN_COMBINATIONS.length
-            new_combo = WIN_COMBINATIONS[combo]
-            x = new_combo.all?{|pos| @board[pos] == "X"}
-            o = new_combo.all?{|pos| @board[pos] == "O"}
-            if x == true || o == true
-                return new_combo
-            else
-                false
+        WIN_COMBINATIONS.any? do |combo|
+            if position_taken?(combo[0]) && @board[combo[0]] == @board[combo[1]] && @board[combo[1]] == @board[combo[2]]
+                return combo
             end
-            combo += 1
         end
+        #combo = 0
+        #while combo < WIN_COMBINATIONS.length
+        #    new_combo = WIN_COMBINATIONS[combo]
+        #    x = new_combo.all?{|pos| @board[pos] == "X"}
+        #    o = new_combo.all?{|pos| @board[pos] == "O"}
+        #    binding.pry
+        #    if x == true || o == true
+        #         return new_combo
+        #     else
+        #         false
+        #     end
+        #     combo += 1
+        # end
     end
 
     def full?
@@ -109,20 +117,26 @@ class TicTacToe
     end
 
     def over?
-        if won? || full?
+        if won? || draw?
             return true
         end
         return false
     end
 
     def winner
-        #binding.pry
         if won?
            @board[won?[1]] 
         end
-        #x = won?.each{|position| @board[position] == "X"}
-        #o = won?.each{|position| @board[position] == "O"}
-        #position_taken?(won?)
+    end
+
+    def play
+        #binding.pry
+        #while over? == false
+        #   turn
+        #end
+        turn until over?
+        puts winner ? "Congratulations #{winner}!" : "Cat's Game!"
+
     end
 
 end
