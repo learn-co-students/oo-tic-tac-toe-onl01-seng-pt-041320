@@ -65,19 +65,73 @@ class TicTacToe
     end
   end
   
-#def won?
-#        combo = 0
-#        while combo < WIN_COMBINATIONS.length
-#            new_combo = WIN_COMBINATIONS[combo]
- #           x = new_combo.all?{|pos| @board[pos] == "X"}
- #           o = new_combo.all?{|pos| @board[pos] == "O"}
- #           if x == true || o == true
- #               return new_combo
- #           else
- #               false
- #           end
- #           combo += 1
- #   end
+  def won?
+     winning_combo = []
+      WIN_COMBINATIONS.each do |array|
+            x = array.all?{|index| @board[index] == "X"}
+            o = array.all?{|index| @board[index] == "O"}
+            if x == true || o == true
+              winning_combo = array
+            end
+      end
+    if winning_combo.empty?
+      return false
+    else
+      return winning_combo
+    end
+  end
+  
+  def full?
+    if @board.include?(" ")
+      return false
+    else 
+      return true
+    end
+  end
+  
+  def draw?
+    if full? == true && won? == false
+      return true
+    else
+      return false
+    end
+  end
+  
+  def over?
+    if won? || draw?
+      return true
+    else
+      return false
+    end
+  end
+  
+  def winner
+    if won?
+      WIN_COMBINATIONS.each do |array|
+            x = array.all?{|index| @board[index] == "X"}
+            o = array.all?{|index| @board[index] == "O"}
+            if x == true 
+              return "X"
+            elsif o == true
+              return "O"
+            end
+       end
+     else
+       return nil
+     end
+    end
 
-
+  def play
+    until over?
+     turn
+    end
+    if draw?
+      puts "Cat's Game!"
+    elsif won?
+      puts "Congratulations #{winner}!"
+    end
+         
+  end
+    
+    
 end
