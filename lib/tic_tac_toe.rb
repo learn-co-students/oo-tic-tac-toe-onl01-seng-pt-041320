@@ -33,27 +33,22 @@ class TicTacToe
   end
   
   def position_taken?(index)
-    if @board[index] == "X" || @board[index] == "O" 
-      true 
-    else
-      false
-    end
+     @board[index] == "X" || @board[index] == "O" 
+     
   end
   
   def valid_move?(index)
-    if @board[index] == " "
-      true
-    else
-      nil
-    end
+    (0...8).include?(index) && 
+      !position_taken?(index) 
+       
   end
   
   def turn_count
-    @board.count{ |x| x if x == "X" || x == "O"}
+    @board.count{ |x| x == "X" || x == "O"}
   end
   
   def current_player
-    if turn_count.even? == true 
+    if turn_count.even? 
       "X"
     else
       "O"
@@ -62,25 +57,52 @@ class TicTacToe
   
   def turn
     puts "put input"
-    input = input_to_index(gets)
-    if valid_move?(input)
-       move(input, current_player)
-       display_board
-    else
-      puts "put input"
-      input_again = gets
-    end
+    input = gets.chomp
+    index = input_to_index(input)
+      if valid_move?(index)
+        move(index, current_player)
+        display_board
+      else
+        turn
+      end
   end
   
   def won?
-    WIN_COMBINATIONS.each do |x|
-       
-        
-     
-    end
+   WIN_COMBINATIONS.detect do |combo|
+      @board[combo[0]] == @board[combo[1]] && @board[combo[1]] == @board[combo[2]] && position_taken?(combo[1])
+#    binding.pry
+  end
   end
  
   def full?
+    @board.all?{|x| x == "X" || x == "O"}
   end
+  
+  def draw?
+    full? && !won?
+  end
+  
+  def over?
+    won? || draw?
+  end
+  
+  def winner
+    if combo = won?  #you can store a method outcome in a variable
+      @board[combo[0]]
+    end
+  end
+  
+  def play 
+    until over?
+      turn 
+    end
+    
+    if draw?
+      puts "Cat's Game!"
+    else 
+      puts "Congratulations #{winner}!"
+    end
+  end 
+  
   
 end
