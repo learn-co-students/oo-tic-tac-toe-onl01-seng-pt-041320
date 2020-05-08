@@ -34,9 +34,11 @@ class TicTacToe
         if position_taken?(index) == false
           true
         else
+          print "Select another number 1-9: "
           false
         end
       else
+        print "Select another number 1-9: "
         false
       end
     end
@@ -121,12 +123,9 @@ class TicTacToe
     
     def play
       until over? == true
-        puts "Please select a number 1-9:"
-        
+        print "Please select a number 1-9: "
         turn
       end
-      
-      display_board
       
       if winner == "X"
         puts "Congratulations X!"
