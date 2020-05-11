@@ -63,6 +63,16 @@ class TicTacToe
     end
 
     def won? #this is messed up ????
+    #     WIN_COMBINATIONS = [    #these are winning combinations
+    #     [0, 1, 2], #top row
+    #     [3, 4, 5], #middle row
+    #     [6, 7, 8], #bottom row
+    #     [0, 4, 8], #diagonal 1
+    #     [2, 4, 6], #diagonal 2
+    #     [0, 3, 6], #column left
+    #     [1, 4, 7], #column middle
+    #     [2, 5, 8] #column right
+    # ]
         WIN_COMBINATIONS.each do |combo|
             index_0 = combo[0]
             index_1 = combo[1]
@@ -81,15 +91,15 @@ class TicTacToe
         return false
     end
     
-    def full? 
+    def full? #if board does not include empty space then it's full 
         !@board.include? " "
     end
     
-    def draw?
+    def draw? #if the boaard is full and game is not won then it's a draw.
        full? && !won? ? true : false
     end
 
-    def over?
+    def over? #if the game is won or game is draw then the game is over. 
         won? || draw? ? true : false
     end
 
@@ -112,7 +122,7 @@ class TicTacToe
         return nil
     end
 
-    def play
+    def play # play until game is over. 
         until over? == true
           turn
         end
