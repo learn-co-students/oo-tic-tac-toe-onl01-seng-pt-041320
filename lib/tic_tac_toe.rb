@@ -1,7 +1,5 @@
 require 'pry'
 # Here we go!!!
-require 'pry'
-# Here we go!!!
 class TicTacToe
     WIN_COMBINATIONS = [    #these are winning combinations
         [0, 1, 2], #top row
