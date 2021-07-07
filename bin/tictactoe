@@ -1,3 +1,19 @@
 #!/usr/bin/env ruby
 require 'pry'
 require_relative '../lib/tic_tac_toe.rb'
+
+class TicTacToe
+
+  def initialize
+    @game= game
+  end
+  
+  def game
+    @game
+  end
+  
+end
+    
+game = TicTacToe.new
+
+game.play
